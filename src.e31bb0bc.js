@@ -853,147 +853,7 @@ var preact = {
 };
 var _default = preact;
 exports.default = _default;
-},{}],"components/PhoneInput.jsx":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _preact = require("preact");
-
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-var PhoneInput =
-/*#__PURE__*/
-function (_Component) {
-  _inherits(PhoneInput, _Component);
-
-  function PhoneInput() {
-    var _getPrototypeOf2;
-
-    var _this;
-
-    _classCallCheck(this, PhoneInput);
-
-    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-
-    _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(PhoneInput)).call.apply(_getPrototypeOf2, [this].concat(args)));
-    _this.ref = null;
-    _this.lastCaretPosition = {
-      start: null,
-      end: null
-    };
-
-    _this.onChange = function (e) {
-      var currentPosition = PhoneInput.getCaretPos(e.currentTarget);
-      var onChange = _this.props.onChange;
-      var value = e.currentTarget.value;
-      var clearValue = PhoneInput.clearValue(value); // if (this.props.value.length > clearValue.length && currentPosition.end < this.lastCaretPosition.end) {
-      //     requestAnimationFrame(() => {
-      //         PhoneInput.setCaretPos(this.ref, currentPosition)
-      //     })
-      // }
-
-      onChange(clearValue);
-      _this.lastCaretPosition = _objectSpread({}, currentPosition);
-    };
-
-    return _this;
-  }
-
-  _createClass(PhoneInput, [{
-    key: "render",
-    value: function render(_ref) {
-      var _this2 = this;
-
-      var mask = _ref.mask,
-          value = _ref.value,
-          placeholder = _ref.placeholder;
-      return (0, _preact.h)("input", {
-        ref: function ref(_ref2) {
-          return _this2.ref = _ref2;
-        },
-        type: "text",
-        value: PhoneInput.format(value, mask),
-        placeholder: placeholder,
-        onInput: this.onChange
-      });
-    }
-  }], [{
-    key: "format",
-    value: function format(value, mask) {
-      var i = 0;
-      var lastReplacedIndex = -1;
-      var filledMask = mask.replace(/_/g, function (_, j) {
-        if (i >= value.length) {
-          return '_';
-        }
-
-        lastReplacedIndex = j;
-        return value[i++];
-      });
-      return filledMask.substring(0, lastReplacedIndex + 1);
-    }
-  }, {
-    key: "clearValue",
-    value: function clearValue(value) {
-      return value.replace(/[^\d]/g, '');
-    }
-  }, {
-    key: "getCaretPos",
-    value: function getCaretPos(input) {
-      if (input.selectionStart || input.selectionStart === '0') {
-        return {
-          'start': input.selectionStart,
-          'end': input.selectionEnd
-        };
-      } else {
-        return {
-          'start': 0,
-          'end': 0
-        };
-      }
-    }
-  }, {
-    key: "setCaretPos",
-    value: function setCaretPos(input, _ref3) {
-      var start = _ref3.start,
-          end = _ref3.end;
-      input.focus();
-      input.setSelectionRange(start, end);
-    }
-  }]);
-
-  return PhoneInput;
-}(_preact.Component);
-
-var _default = PhoneInput;
-exports.default = _default;
-},{"preact":"../node_modules/preact/dist/preact.mjs"}],"../node_modules/imask/dist/imask.js":[function(require,module,exports) {
+},{}],"../node_modules/imask/dist/imask.js":[function(require,module,exports) {
 var define;
 var global = arguments[3];
 (function (global, factory) {
@@ -5630,7 +5490,123 @@ var global = arguments[3];
 }));
 
 
-},{}],"components/App.jsx":[function(require,module,exports) {
+},{}],"components/PhoneInput.jsx":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _preact = require("preact");
+
+var _imask = _interopRequireDefault(require("imask"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var PhoneInput =
+/*#__PURE__*/
+function (_Component) {
+  _inherits(PhoneInput, _Component);
+
+  function PhoneInput() {
+    var _getPrototypeOf2;
+
+    var _this;
+
+    _classCallCheck(this, PhoneInput);
+
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(PhoneInput)).call.apply(_getPrototypeOf2, [this].concat(args)));
+    _this.imask = null;
+    _this.ref = null;
+    return _this;
+  }
+
+  _createClass(PhoneInput, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      var lastChar = '';
+      this.imask = (0, _imask.default)(this.ref, {
+        mask: '+{7} 000-000-00-00',
+        prepare: function prepare(str, masked) {
+          var typedValue = masked.typedValue,
+              unmaskedValue = masked.unmaskedValue,
+              rawInputValue = masked.rawInputValue;
+
+          if (str === '7' && lastChar === '+') {
+            return '';
+          }
+
+          if (str === '8' && rawInputValue === '') {
+            return '';
+          }
+
+          if (str === '+' && rawInputValue === '') {
+            return '';
+          }
+
+          lastChar = str;
+          return str;
+        }
+      }), this.imask.on('accept', function () {
+        _this2.props.onChange(_this2.imask.unmaskedValue);
+      });
+    }
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      this.imask.off('accept');
+      this.imask.destroy();
+    }
+  }, {
+    key: "render",
+    value: function render(_ref) {
+      var _this3 = this;
+
+      var value = _ref.value,
+          placeholder = _ref.placeholder,
+          onChange = _ref.onChange;
+      return (0, _preact.h)("input", {
+        type: "text",
+        defaultValue: value,
+        placeholder: placeholder,
+        ref: function ref(_ref2) {
+          return _this3.ref = _ref2;
+        }
+      });
+    }
+  }]);
+
+  return PhoneInput;
+}(_preact.Component);
+
+var _default = PhoneInput;
+exports.default = _default;
+},{"preact":"../node_modules/preact/dist/preact.mjs","imask":"../node_modules/imask/dist/imask.js"}],"components/App.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -5641,8 +5617,6 @@ exports.default = void 0;
 var _preact = require("preact");
 
 var _PhoneInput = _interopRequireDefault(require("./PhoneInput"));
-
-var _imask = _interopRequireDefault(require("imask"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -5681,9 +5655,8 @@ function (_Component) {
     }
 
     _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(App)).call.apply(_getPrototypeOf2, [this].concat(args)));
-    _this.ref = null;
     _this.state = {
-      phoneNumber: ''
+      phoneNumber: '79243242273'
     };
 
     _this.onChangePhoneNumber = function (phone) {
@@ -5692,53 +5665,18 @@ function (_Component) {
       });
     };
 
-    _this.onInput = function (e) {
-      if (e.inputType === 'insertFromPaste') {
-        e.currentTarget.value = '';
-      }
-    };
-
     return _this;
   }
 
   _createClass(App, [{
-    key: "componentDidMount",
-    value: function componentDidMount() {
-      var lastChar = '';
-      var phoneMask = (0, _imask.default)(this.ref, {
-        mask: '+{7} 000-000-00-00',
-        prepare: function prepare(str, masked) {
-          var typedValue = masked.typedValue,
-              unmaskedValue = masked.unmaskedValue,
-              rawInputValue = masked.rawInputValue;
-          console.log({
-            str: str,
-            typedValue: typedValue,
-            unmaskedValue: unmaskedValue,
-            rawInputValue: rawInputValue
-          });
-
-          if (str === '7' && lastChar === '+') {
-            return '';
-          }
-
-          lastChar = str;
-          return str;
-        }
-      });
-    }
-  }, {
     key: "render",
     value: function render(props, _ref) {
-      var _this2 = this;
-
       var phoneNumber = _ref.phoneNumber;
-      return (0, _preact.h)("div", null, (0, _preact.h)("input", {
-        type: "text",
-        ref: function ref(_ref2) {
-          return _this2.ref = _ref2;
-        }
-      }));
+      return (0, _preact.h)("div", null, (0, _preact.h)(_PhoneInput.default, {
+        onChange: this.onChangePhoneNumber,
+        value: phoneNumber,
+        placeholder: "+7 ___-___-__-__"
+      }), (0, _preact.h)("div", null, phoneNumber));
     }
   }]);
 
@@ -5747,7 +5685,7 @@ function (_Component) {
 
 var _default = App;
 exports.default = _default;
-},{"preact":"../node_modules/preact/dist/preact.mjs","./PhoneInput":"components/PhoneInput.jsx","imask":"../node_modules/imask/dist/imask.js"}],"index.js":[function(require,module,exports) {
+},{"preact":"../node_modules/preact/dist/preact.mjs","./PhoneInput":"components/PhoneInput.jsx"}],"index.js":[function(require,module,exports) {
 "use strict";
 
 var _preact = require("preact");
@@ -5786,7 +5724,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60901" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50485" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
