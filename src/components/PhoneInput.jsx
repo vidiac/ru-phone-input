@@ -7,15 +7,14 @@ class PhoneInput extends Component {
 
     componentDidMount()
     {
-        let lastChar = ''
-
         this.imask = IMask(
             this.ref, 
             { 
                 mask: '+{7} 000-000-00-00', 
                 prepare: function (str, masked) {
-                    const {typedValue, unmaskedValue, rawInputValue} = masked
-                    if (str === '7' && lastChar === '+') {
+                    const {typedValue, rawInputValue} = masked
+
+                    if (str === '7' && typedValue === '7') {
                         return ''
                     }
 
@@ -23,12 +22,14 @@ class PhoneInput extends Component {
                         return ''
                     }
 
+                    if (str === '8' && typedValue === '7' && rawInputValue === '7') {
+                        return ''
+                    }
+
                     if (str === '+' && rawInputValue === '') {
                         return ''
                     }
 
-
-                    lastChar = str
                     return str
                 },
              }
@@ -43,9 +44,9 @@ class PhoneInput extends Component {
         this.imask.destroy()
     }
 
-    render({value, placeholder, onChange}) {
+    render({value, onChange, ...otherProps}) {
         return (
-            <input type="text" defaultValue={value} placeholder={placeholder} ref={ref => this.ref = ref}/>
+            <input type="text" defaultValue={value} ref={ref => this.ref = ref} {...otherProps} />
         )
     }
 }
