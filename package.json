@@ -1,0 +1,50 @@
+{
+  "_from": "s25-phone-input",
+  "_id": "s25-phone-input@1.0.0",
+  "_inBundle": false,
+  "_integrity": "sha512-feRrMLXj6foHrB1p9U2KORX7+iNpHIafkLwk4uFgzJ7RZcopL8ld5fPPu2Vh/FWBmWP4Nkbnbv/f1O7i2EmZpg==",
+  "_location": "/s25-phone-input",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "s25-phone-input",
+    "name": "s25-phone-input",
+    "escapedName": "s25-phone-input",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/s25-phone-input/-/s25-phone-input-1.0.0.tgz",
+  "_shasum": "d3de5e6953755ea7b0bf90827730de8f8b0e6022",
+  "_spec": "s25-phone-input",
+  "_where": "/Users/sergey/Documents/dev/npm/phone-input",
+  "author": "",
+  "bundleDependencies": false,
+  "dependencies": {
+    "imask": "^5.1.6",
+    "preact": "^8.4.2"
+  },
+  "deprecated": false,
+  "description": "",
+  "devDependencies": {
+    "@babel/core": "^7.4.4",
+    "@babel/plugin-proposal-class-properties": "^7.4.4",
+    "@babel/preset-react": "^7.0.0",
+    "jest": "^24.8.0",
+    "parcel-bundler": "^1.12.3"
+  },
+  "license": "ISC",
+  "main": "index.js",
+  "name": "s25-phone-input",
+  "scripts": {
+    "dev": "parcel src/index.html",
+    "prod": "parcel build src/index.html",
+    "test": "jest"
+  },
+  "version": "1.0.0"
+}
