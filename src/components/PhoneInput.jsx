@@ -1,52 +1,45 @@
 import {h, Component} from "preact"
-import IMask from 'imask'
+import helper from '../heplers'
 
 class PhoneInput extends Component {
-    imask = null
     ref = null
-
-    componentDidMount()
-    {
-        this.imask = IMask(
-            this.ref, 
-            { 
-                mask: '+{7} 000-000-00-00', 
-                prepare: function (str, masked) {
-                    const {typedValue, rawInputValue} = masked
-
-                    if (str === '7' && typedValue === '7') {
-                        return ''
-                    }
-
-                    if (str === '8' && rawInputValue === '') {
-                        return ''
-                    }
-
-                    if (str === '8' && typedValue === '7' && rawInputValue === '7') {
-                        return ''
-                    }
-
-                    if (str === '+' && rawInputValue === '') {
-                        return ''
-                    }
-
-                    return str
-                },
-             }
-        ),
-        this.imask.on('accept', () => {
-            this.props.onChange(this.imask.unmaskedValue)
-        });
+    lastCaretPosition = {start: null, end: null}
+    state = {
+        value: this.props.value,
     }
 
-    componentWillUnmount() {
-        this.imask.off('accept');
-        this.imask.destroy()
+    onChange = e => {
+        const currentPosition = helper.getCaretPos(e.currentTarget)
+
+
+        const {onChange} = this.props
+        const {value} = e.currentTarget
+        const clearValue = helper.clearValue(value)
+
+        if (value[currentPosition.end + 1] && (currentPosition.end < this.lastCaretPosition.end || value.length > this.lastCaretPosition.end)) {
+            setTimeout(() => {
+                if (value[currentPosition.end + 1] === '-') {
+                    currentPosition.start++
+                    currentPosition.end++
+                }
+
+                helper.setCaretPos(this.ref, currentPosition)
+            })
+        }
+
+        onChange(clearValue)
+        this.lastCaretPosition = {...currentPosition}
     }
 
     render({value, onChange, ...otherProps}) {
         return (
-            <input type="text" defaultValue={value} ref={ref => this.ref = ref} {...otherProps} />
+            <input
+                ref={ref => (this.ref = ref)}
+                type='tel'
+                value={helper.format(value)}
+                onInput={this.onChange}
+                {...otherProps}
+            />
         )
     }
 }

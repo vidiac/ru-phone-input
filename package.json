@@ -26,9 +26,7 @@
   "_where": "/Users/sergey/Documents/dev/npm/phone-input",
   "author": "",
   "bundleDependencies": false,
-  "dependencies": {
-    "imask": "^5.1.6"
-  },
+  "dependencies": {},
   "deprecated": false,
   "description": "",
   "devDependencies": {
@@ -47,5 +45,5 @@
     "prod": "parcel build src/index.html",
     "test": "jest"
   },
-  "version": "1.0.0"
+  "version": "1.0.6"
 }
